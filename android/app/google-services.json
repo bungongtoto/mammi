@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "628823102829",
+    "project_id": "mammicrm-f9c0c",
+    "storage_bucket": "mammicrm-f9c0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628823102829:android:872b417230a2321b48b664",
+        "android_client_info": {
+          "package_name": "com.mammicrm.mammi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628823102829-1k931pjr9nsa1tf8qnu4nt8u6u92jcs7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8CxXvrmdqFHcjl5vTp-KkrfZLRcCjbpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628823102829-1k931pjr9nsa1tf8qnu4nt8u6u92jcs7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
