@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../../models/user.dart';
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -35,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _openAddProductPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddProductPage()),
+      MaterialPageRoute(builder: (context) => const AddProductPage()),
     );
   }
 
@@ -45,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     final user = Provider.of<UserApp>(context);
-    final AuthService _auth = AuthService();
+    final AuthService auth = AuthService();
     
     return Scaffold( 
     
@@ -88,24 +90,24 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             ListTile(
-              title: Text('ADD FOOD FOR SALE'),
+              title: const Text('ADD FOOD FOR SALE'),
               onTap: () {
                 _openAddProductPage();
               },
             ),
             ListTile(
-              title: Text('Option 2'),
+              title: const Text('Option 2'),
               onTap: () {
                 // Perform action
               },
             ),
             ListTile(
               
-              title: Text('Log Out'),
+              title: const Text('Log Out'),
               
               onTap: () async{
   
-                await _auth.signOut();
+                await auth.signOut();
               },
             ),
           ],

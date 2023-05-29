@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
       backgroundColor: Colors.white,
       
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
         child: Form(
           key: _formkey,
           child: SingleChildScrollView(
@@ -108,12 +108,50 @@ class _RegisterState extends State<Register> {
                   error,
                   style: const TextStyle(color: Colors.red,fontSize: 14.0 ),
                 ),
-                TextButton.icon(
-                  icon: const Icon(Icons.person),
-                  label: const Text('Have an Account? Sign '),
-                  onPressed: (){
-                    widget.toggleView();
-                  },
+                const Text('Sign up with Google'),
+                TextButton(
+                  child:Container(
+                      width: Dimensions.listViewIm,
+                      height: Dimensions.listViewIm,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimensions.radius20),
+                        color: Colors.white38,
+                        image: const DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(
+                            "assets/images/google-g-2015-logo-png-transparent.png",
+                          ),
+                        ),
+                      ),
+                    ),
+                  onPressed: () async{
+                     setState(() {
+                      loading = true;
+                    });
+                      dynamic result = await _auth.signInWithGoogle();
+                      print('result :: ${result.toString()}');
+                      if (result == null){
+                        setState(() {
+                          error = 'could sign with those credentials';
+                          loading = false;
+                        });
+                      }
+                    }
+                    //AuthService().signInWithGoogle();
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Have an Account?'),
+                    TextButton(
+                      // icon: const Icon(Icons.person),
+                      // label: const Text('Have an Account?Sign '),
+                      onPressed: (){
+                        widget.toggleView();
+                      },
+                      child: const Text("Click here to signin"),
+                    ),
+                  ],
                 ),
               ],
             ),
