@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mammi/models/product.dart';
 import 'package:mammi/screens/home/food_page_body.dart';
@@ -40,7 +39,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 children: [
                   Column(
                     children: [
-                     BigText(text: 'Cameroon',color: AppColors.mainColor,),
+                     const BigText(text: 'Cameroon',color: AppColors.mainColor,),
                      Row(
                       children: [
                         SmallText(text: 'Yaounde', color: Colors.black,),

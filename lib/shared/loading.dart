@@ -9,7 +9,7 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white70,
+      color: Colors.white,
       child:const Center(child: SpinKitFadingCircle(color: AppColors.mainColor, size: 50.0,)),
     );
   }

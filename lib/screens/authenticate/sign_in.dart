@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mammi/screens/authenticate/forgot_password.dart';
 import 'package:mammi/services/auth.dart';
 import 'package:mammi/shared/constants.dart';
 import 'package:mammi/shared/loading.dart';
@@ -32,7 +33,7 @@ class _SignInState extends State<SignIn> {
     return loading ?const Loading() : Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
         child: Form(
           key: _formkey,
           child: SingleChildScrollView(
@@ -55,7 +56,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                 // the title
-                BigText(text: "MAMMI", color: AppColors.mainColor),    
+                const BigText(text: "MAMMI", color: AppColors.mainColor),    
                 SizedBox(height: Dimensions.height10,),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'Email'),
@@ -76,6 +77,31 @@ class _SignInState extends State<SignIn> {
                       password = val;
                     });
                   },
+                ),
+                const SizedBox(height: 10.0,),
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(
+                            builder: (context){
+                          return const ForgotPasswordPage();
+                          
+                        }
+                        ),
+                        );
+                      },
+                      child: const Text('Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20.0,),
                 ElevatedButton(
@@ -111,12 +137,49 @@ class _SignInState extends State<SignIn> {
                   error,
                   style: const TextStyle(color: Colors.red,fontSize: 14.0 ),
                 ),
-                TextButton.icon(
-                  icon: const Icon(Icons.person),
-                  label: const Text('Dont have an Account? Click Here and register'),
-                  onPressed: (){
-                    widget.toggleView();
-                  },
+                const Text('Sign in with Google'),
+                TextButton(
+                  child:Container(
+                      width: Dimensions.listViewIm,
+                      height: Dimensions.listViewIm,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimensions.radius20),
+                        color: Colors.white38,
+                        image: const DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(
+                            "assets/images/google-g-2015-logo-png-transparent.png",
+                          ),
+                        ),
+                      ),
+                    ),
+                  onPressed: () async{
+                     setState(() {
+                      loading = true;
+                    });
+                      dynamic result = await _auth.signInWithGoogle();
+                      print('result :: ${result.toString()}');
+                      if (result == null){
+                        setState(() {
+                          error = 'could sign with those credentials';
+                          loading = false;
+                        });
+                      }
+                    }
+                    //AuthService().signInWithGoogle();
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Dont have an Account?'),
+                    TextButton(
+                      child: const Text('Click Here to register') ,
+                      //label: const Text('Dont have an Account? Click Here and register'),
+                      onPressed: (){
+                        widget.toggleView();
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),

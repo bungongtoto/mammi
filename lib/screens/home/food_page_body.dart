@@ -35,6 +35,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   void dispose() {
+    super.dispose();
     PageController().dispose();
   }
 
@@ -46,7 +47,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Column(
       children: [
         //slider section
-        Container(
+        SizedBox(
           //color: Colors.redAccent,
           height: Dimensions.pageView,
           child: PageView.builder(

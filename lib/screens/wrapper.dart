@@ -20,7 +20,7 @@ class Wrapper extends StatelessWidget {
         home: Authenticate(),
       );
     }else {
-      return GetMaterialApp(
+      return const GetMaterialApp(
         debugShowCheckedModeBanner: false,
         home:  MyHomePage(),
       );

@@ -4,9 +4,9 @@ import 'package:mammi/utills/dimensions.dart';
 class BigText extends StatelessWidget {
   final Color? color;
   final String text;
-   double size;
-   TextOverflow overFlow;
-   BigText({required this.text,
+   final double size;
+   final TextOverflow overFlow;
+   const BigText({required this.text,
    required this.color,
    super.key,
    this.overFlow = TextOverflow.ellipsis,
