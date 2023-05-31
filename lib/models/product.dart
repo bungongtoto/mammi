@@ -18,16 +18,16 @@ class Product {
   });
 
   factory Product.fromMap(Map<String, dynamic> map, String id) {
-    return Product(
-      id: id,
-      userId: map['userId'] ?? '',
-      name: map['name'] ?? '',
-      description: map['description'] ?? '',
-      price: (map['price'] ?? 0).toDouble(),
-      quantity: map['quantity'] ?? 0,
-      imageUrl: map['image'] ?? '',
-    );
-  }
+  return Product(
+    id: id,
+    userId: map['userId'] as String,
+    name: map['name'] as String,
+    description: map['description'] as String,
+    price: map['price'] as double,
+    imageUrl: map['imageUrl'] as String,
+    quantity: map['quantity'] as int,
+  );
+}
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
@@ -43,7 +43,6 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'userId': userId,
       'name': name,
       'description': description,

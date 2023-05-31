@@ -1,33 +1,70 @@
 {
   "project_info": {
-    "project_number": "628823102829",
-    "project_id": "mammicrm-f9c0c",
-    "storage_bucket": "mammicrm-f9c0c.appspot.com"
+    "project_number": "183097393931",
+    "project_id": "mammi-fab4c",
+    "storage_bucket": "mammi-fab4c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:628823102829:android:872b417230a2321b48b664",
+        "mobilesdk_app_id": "1:183097393931:android:bd01f21eff9c678c5d580e",
         "android_client_info": {
-          "package_name": "com.mammicrm.mammi"
+          "package_name": "com.mammi.mammi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "628823102829-1k931pjr9nsa1tf8qnu4nt8u6u92jcs7.apps.googleusercontent.com",
+          "client_id": "183097393931-bfir4t5k4fnsuh134jjigorocfpn0dlr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB8CxXvrmdqFHcjl5vTp-KkrfZLRcCjbpA"
+          "current_key": "AIzaSyCTELmJ7qKS--maiXlnffElqSDyYkIVmIA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "628823102829-1k931pjr9nsa1tf8qnu4nt8u6u92jcs7.apps.googleusercontent.com",
+              "client_id": "183097393931-bfir4t5k4fnsuh134jjigorocfpn0dlr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183097393931:android:344e75d06f97fbc35d580e",
+        "android_client_info": {
+          "package_name": "com.mammicam.mammi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183097393931-aodl80tn1b6hnbc08pqpn8aqht6ktdqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mammicam.mammi",
+            "certificate_hash": "37bdfc2d995728595f134779adb7a817d47552d6"
+          }
+        },
+        {
+          "client_id": "183097393931-bfir4t5k4fnsuh134jjigorocfpn0dlr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTELmJ7qKS--maiXlnffElqSDyYkIVmIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183097393931-bfir4t5k4fnsuh134jjigorocfpn0dlr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

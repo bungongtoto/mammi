@@ -55,7 +55,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                 // the title
-                BigText(text: "MAMMI", color: AppColors.mainColor),
+                const BigText(text: "MAMMI", color: AppColors.mainColor),
                 const SizedBox(height: 20.0,),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'Email'),
@@ -129,7 +129,6 @@ class _RegisterState extends State<Register> {
                       loading = true;
                     });
                       dynamic result = await _auth.signInWithGoogle();
-                      print('result :: ${result.toString()}');
                       if (result == null){
                         setState(() {
                           error = 'could sign with those credentials';
