@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mammi/colors/colors.dart';
-import 'package:mammi/screens/home/main_food_page.dart';
-import 'package:mammi/screens/others/add_product.dart';
+import 'package:mammi/screens/home/cart.dart';
+import 'package:mammi/screens/home/food_page.dart';
+import 'package:mammi/screens/home/shops.dart';
 import 'package:mammi/services/auth.dart';
 import 'package:provider/provider.dart';
-
+import '../../models/product.dart';
 import '../../models/user.dart';
+import '../../services/database.dart';
+import '../dashboard/userProductPage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -16,16 +19,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  
-      
-    
-
   int _selectedIndex = 0;
 
   final  List<Widget> _widgetOptions = <Widget>[
-    const MainFoodPage(),
-     
-    // ThirdPage(),
+    const FoodPage(),
+    const ShopsPage(),
+    const CartPage(),     
   ];
 
   void _onItemTapped(int index) {
@@ -34,85 +33,90 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _openAddProductPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AddProductPage()),
-    );
-  }
-
-  
-
+ 
   @override
   Widget build(BuildContext context) {
 
     final user = Provider.of<UserApp>(context);
     final AuthService auth = AuthService();
+
+    void openDashboard() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UserProductsPage(userId:user.uid)),
+    );
+  }
     
-    return Scaffold( 
-    
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+    return StreamProvider<List<Product>?>.value(
+      value: DatabaseService(user.uid).products, 
+      initialData: null,
+      builder: (context, snapshot) {
+        return Scaffold( 
+        
+          body: Center(
+            child: _widgetOptions.elementAt(_selectedIndex),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.mainColor,
-        onTap: _onItemTapped,
-      ),
-      drawer:  Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-               DrawerHeader(
-              decoration:const BoxDecoration(
-                color: AppColors.mainColor,
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
-              child: Text(
-                'USER ID: ${user.uid}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shop),
+                label: 'shops',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart_outlined),
+                label: 'Cart',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: AppColors.mainColor,
+            onTap: _onItemTapped,
+          ),
+          drawer:  Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                   DrawerHeader(
+                  decoration:const BoxDecoration(
+                    color: AppColors.mainColor,
+                  ),
+                  child: Text(
+                    'USER ID: ${user.uid}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
                 ),
-              ),
+                ListTile(
+                  title: const Text('Dashboard'),
+                  onTap: () {
+                    openDashboard();
+                  },
+                ),
+                ListTile(
+                  title: const Text('Option 2'),
+                  onTap: () {
+                    // Perform action
+                  },
+                ),
+                ListTile(
+                  
+                  title: const Text('Log Out'),
+                  
+                  onTap: () async{
+      
+                    await auth.signOut();
+                  },
+                ),
+              ],
             ),
-            ListTile(
-              title: const Text('ADD FOOD FOR SALE'),
-              onTap: () {
-                _openAddProductPage();
-              },
-            ),
-            ListTile(
-              title: const Text('Option 2'),
-              onTap: () {
-                // Perform action
-              },
-            ),
-            ListTile(
-              
-              title: const Text('Log Out'),
-              
-              onTap: () async{
-  
-                await auth.signOut();
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }

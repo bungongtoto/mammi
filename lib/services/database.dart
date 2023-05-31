@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
 import '../models/product.dart';
 
 class DatabaseService{
+  final String uid;
+  DatabaseService(this.uid);
+   final CollectionReference productCollection = FirebaseFirestore.instance.collection('products');
 
-   final CollectionReference brewCollection = FirebaseFirestore.instance.collection('products');
-
-   List<Product> _productListFormSnapshot(QuerySnapshot snapshots){
+   List<Product> _userProductListFormSnapshot(QuerySnapshot snapshots){
     return snapshots.docs.map((doc) {
       return Product(
-        id: doc['id'],
+        id: doc.id,
         userId: doc['userId'] ?? '',
         name: doc['name'] ?? '',
         description: doc['description'] ?? '',
@@ -20,7 +22,18 @@ class DatabaseService{
     }).toList();
   } 
  
+
+  Future updateUserData(Product product) async{
+    return await productCollection.doc(product.id).set({
+        'name': product.name,
+        'description': product.description,
+        'price': product.price,
+        'quantity': product.quantity,
+        'imageUrl': product.imageUrl,
+    });
+  }
+  
   Stream<List<Product>> get products{
-    return brewCollection.snapshots().map(_productListFormSnapshot);
+    return  productCollection.snapshots().map(_userProductListFormSnapshot);
   }
 }

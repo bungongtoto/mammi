@@ -7,6 +7,7 @@ import 'package:mammi/services/auth.dart';
 import 'package:provider/provider.dart';
 
 import '../../colors/colors.dart';
+import '../../models/user.dart';
 import '../../services/database.dart';
 import '../../widgets/big_text.dart';
 
@@ -20,12 +21,13 @@ class MainFoodPage extends StatefulWidget {
 class _MainFoodPageState extends State<MainFoodPage> {
 
   final AuthService _auth = AuthService();
+  
   @override
   Widget build(BuildContext context) {
     //print('the curent height is : '+ MediaQuery.of(context).size.height.toString());
-   
+    final user = Provider.of<UserApp>(context);
     return StreamProvider<List<Product>?>.value(
-      value: DatabaseService().products,
+      value: DatabaseService(user.uid).products,
       initialData: null,
       child: Scaffold(
         body: Column(
