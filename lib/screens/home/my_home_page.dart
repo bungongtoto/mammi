@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mammi/colors/colors.dart';
 import 'package:mammi/screens/home/cart.dart';
-import 'package:mammi/screens/home/food_page.dart';
 import 'package:mammi/screens/home/shops.dart';
 import 'package:mammi/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,7 @@ import '../../models/product.dart';
 import '../../models/user.dart';
 import '../../services/database.dart';
 import '../dashboard/userProductPage.dart';
+import 'food/food_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _selectedIndex = 0;
 
-  final  List<Widget> _widgetOptions = <Widget>[
+  final  List<Widget> _widgetOptions = <Widget> [
     const FoodPage(),
     const ShopsPage(),
     const CartPage(),     
