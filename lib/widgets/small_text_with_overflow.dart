@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mammi/colors/colors.dart';
 import 'package:mammi/utills/dimensions.dart';
 
+/// this is for small text withoverflow, so long small text can fit in smaller areas
 class SmallTextOverflow extends StatelessWidget {
   Color? color;
   final String text;

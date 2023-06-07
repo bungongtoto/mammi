@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mammi/utills/dimensions.dart';
 
+/// this is general widget for big Text that text varouis characteristics used arround the code that apears in several places
 class BigText extends StatelessWidget {
   final Color? color;
   final String text;

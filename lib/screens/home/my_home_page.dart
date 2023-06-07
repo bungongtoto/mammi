@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final user = Provider.of<UserApp>(context);
     final AuthService auth = AuthService();
 
+    /// Open the dashboard page
     void openDashboard() {
       Navigator.push(
         context,
@@ -60,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
 
+    /// Open the orders page
     void openOrdersPage() {
       Navigator.push(
         context,
@@ -69,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
 
+    /// Open the orders page
     void openOrders() {
       Navigator.push(
         context,

@@ -6,6 +6,7 @@ import '../colors/colors.dart';
 import '../utills/dimensions.dart';
 import 'icon_text_widget.dart';
 
+/// this is general widget used arround the code that apears in several places
 class AppColumn extends StatelessWidget {
   final String text;
    const AppColumn({

@@ -25,14 +25,17 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
   final _quantityController = TextEditingController();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
+
+    // Initialize the text fields with the product data
     _productNameController.text = widget.product.name!;
     _descriptionController.text = widget.product.description!;
     _priceController.text = widget.product.price.toString();
     _quantityController.text = widget.product.quantity.toString();
   }
 
+  /// Function to update the product in the database
   void _updateProduct() async {
     if (_formKey.currentState!.validate()) {
       String productName = _productNameController.text;
@@ -71,6 +74,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
     }
   }
 
+  /// Function to upload the selected image to Firebase Storage
   Future<String> _uploadImage() async {
     if (_image == null) {
       return widget.product.imageUrl!; // Return the existing image URL if no new image is selected
@@ -87,6 +91,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
     return downloadURL;
   }
 
+  /// Function to select an image from the gallery
   Future _selectImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
@@ -113,6 +118,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// TextFormField for product name
                 TextFormField(
                   controller: _productNameController,
                   decoration: const InputDecoration(
@@ -125,6 +131,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     return null;
                   },
                 ),
+                /// TextFormField for description
                 TextFormField(
                   controller: _descriptionController,
                   decoration: const InputDecoration(
@@ -138,6 +145,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     return null;
                   },
                 ),
+                /// TextFormField for price
                 TextFormField(
                   controller: _priceController,
                   decoration: const InputDecoration(
@@ -154,6 +162,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     return null;
                   },
                 ),
+                /// ListTile for selecting an image
                 ListTile(
                   title: const Text('Image'),
                   subtitle: _image == null
@@ -161,6 +170,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                       : Image.file(_image!),
                   onTap: _selectImage,
                 ),
+                /// TextFormField for quantity
                 TextFormField(
                   controller: _quantityController,
                   decoration: const InputDecoration(
@@ -178,6 +188,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                   },
                 ),
                 const SizedBox(height: 16.0),
+                /// Button for updating the product
                 ElevatedButton(
                   onPressed: _updateProduct,
                   style: ElevatedButton.styleFrom(

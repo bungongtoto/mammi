@@ -14,6 +14,7 @@ class OrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<UserApp>(context);
 
+  /// Scaffold with app bar and body
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Orders'),
@@ -25,38 +26,46 @@ class OrdersPage extends StatelessWidget {
             .where('userId', isEqualTo: user.uid)
             .snapshots(),
         builder: (context, snapshot) {
+          /// Handle error in fetching orders
           if (snapshot.hasError) {
             return const Text('Error fetching orders');
           }
 
+          /// Display a progress indicator while waiting for data
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           }
 
+          /// Check if orders data is available
           if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
             final orders = snapshot.data!.docs
                 .map((doc) => Orders.fromSnapshot(doc))
                 .toList();
 
+            /// Display a ListView of orders
             return ListView.builder(
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 final order = orders[index];
 
+                /// Fetch product details for each order
                 return FutureBuilder<DocumentSnapshot>(
                   future: FirebaseFirestore.instance
                       .collection('products')
                       .doc(order.productId)
                       .get(),
                   builder: (context, snapshot) {
+                    /// Handle error in fetching product details
                     if (snapshot.hasError) {
                       return const Text('Error fetching product details');
                     }
 
+                    /// Display a progress indicator while waiting for data
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator(color: AppColors.mainColor);
                     }
 
+                    /// Check if product data is available
                     if (snapshot.hasData && snapshot.data!.exists) {
                       final product = Product.fromMap(
                         snapshot.data!.data() as Map<String, dynamic>,
@@ -65,6 +74,7 @@ class OrdersPage extends StatelessWidget {
 
                       final totalPrice = product.price! * order.quantity;
 
+                      /// Display ListTile for each order
                       return ListTile(
                         title: Text('Product Name: ${product.name}'),
                         subtitle: Column(
@@ -79,6 +89,7 @@ class OrdersPage extends StatelessWidget {
                       );
                     }
 
+                    /// Display message if product is not found
                     return const Text('Product not found');
                   },
                 );
@@ -86,6 +97,7 @@ class OrdersPage extends StatelessWidget {
             );
           }
 
+          /// Display message if no orders found
           return const Text('No orders found');
         },
       ),

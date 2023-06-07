@@ -3,6 +3,7 @@ import 'package:mammi/colors/colors.dart';
 import 'package:mammi/utills/dimensions.dart';
 import 'package:mammi/widgets/small_text.dart';
 
+/// this class is used to take long text and reduce, to allow user to deciside to expand it
 class ExpandableText extends StatefulWidget {
   final String text;
   const ExpandableText({super.key, required this.text});

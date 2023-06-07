@@ -33,7 +33,7 @@ class _FoodDetailState extends State<FoodDetail> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // background image
+          /// background image
           Positioned(
             left: 0,
             right: 0,
@@ -50,7 +50,7 @@ class _FoodDetailState extends State<FoodDetail> {
               ),
             ),
           ), 
-          // icon row
+          /// icon row
           Positioned(
             top: Dimensions.height45,
             left: Dimensions.width20,
@@ -66,26 +66,26 @@ class _FoodDetailState extends State<FoodDetail> {
                 ),
                 GestureDetector(
                   onTap: () {
-                     // Add the product to the cart
+                     /// Add the product to the cart
                     Cart cartItem = Cart(
-                      cartId: '', // Generate a unique cartId using a UUID package or Firestore auto-generated ID
-                      userId: user.uid, // Replace with the actual user ID
+                      cartId: '', /// Generate a unique cartId using a UUID package or Firestore auto-generated ID
+                      userId: user.uid, /// Replace with the actual user ID
                       productId: widget.product.id!,
                       quantity: quantity,
                       contactNumber: "null",
                     );
 
-                    // Perform the necessary logic to add the cart item to the cart collection
+                    /// Perform the necessary logic to add the cart item to the cart collection
                     FirebaseFirestore.instance
                         .collection('cart')
                         .add(cartItem.toJson())
                         .then((_) {
-                      // Show a confirmation message
+                      /// Show a confirmation message
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Product added to cart')),
                       );
                     }).catchError((error) {
-                      // Show an error message
+                      /// Show an error message
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Error adding product to cart: $error')),
                       );
@@ -96,7 +96,7 @@ class _FoodDetailState extends State<FoodDetail> {
               ],
             ),
           ),
-          //food detail description
+          /// food detail description
           Positioned(
             left: 0,
             right: 0,

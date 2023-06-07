@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+
+/// this class provides the different dimensions used arround the application
+/// like widths, height, raduis and ...etc
 class Dimensions {
   static double screenHeight = Get.context!.height;//(360)
   static double screenWidth = Get.context!.width;//(360)

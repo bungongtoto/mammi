@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mammi/colors/colors.dart';
 import 'package:mammi/utills/dimensions.dart';
 
+/// SmallText is a general form for small text in the app
 class SmallText extends StatelessWidget {
   Color? color;
   final String text;

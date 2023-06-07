@@ -7,7 +7,6 @@ import 'package:mammi/utills/dimensions.dart';
 import 'package:mammi/widgets/big_text.dart';
 import 'package:mammi/widgets/icon_text_widget.dart';
 
-import '../../widgets/small_text.dart';
 import '../../widgets/small_text_with_overflow.dart';
 import '../home/order/dashboard_order.dart';
 import 'add_product.dart';
@@ -51,8 +50,8 @@ class _UserProductsPageState extends State<UserProductsPage> {
   Future<void> deleteProduct(Product product) async {
     try {
       await FirebaseFirestore.instance.collection('products').doc(product.id).delete();
-      // Product deleted successfully
-      // Refresh the product list after deletion
+      /// Product deleted successfully
+      /// Refresh the product list after deletion
       await fetchProducts();
     } catch (error) {
       showDialog(
@@ -69,7 +68,7 @@ class _UserProductsPageState extends State<UserProductsPage> {
   @override
   void initState() {
     super.initState();
-    // Fetch the products for the specified user ID
+    /// Fetch the products for the specified user ID
     fetchProducts();
   }
 

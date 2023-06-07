@@ -1,13 +1,19 @@
-class UserApp{
-  final String uid;
+class UserApp {
+  final String uid; /// Unique identifier of the user
+
   UserApp({required this.uid});
 }
 
-class UserData{
-  final String uid;
-  final String name;
-  final String sugars;
-  final int strength;
+class UserData {
+  final String uid; /// Unique identifier of the user
+  final String name; /// Name of the user
+  final String sugars; /// Preference for sugars
+  final int strength; /// Strength preference
 
-  UserData({required this.uid,required this.sugars, required this.strength,required this.name});
+  UserData({
+    required this.uid,
+    required this.sugars,
+    required this.strength,
+    required this.name,
+  });
 }

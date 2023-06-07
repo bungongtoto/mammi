@@ -26,68 +26,68 @@ class _AddProductPageState extends State<AddProductPage> {
   final _quantityController = TextEditingController();
   String? uid = "";
 
+  /// Function to add the product to the database
   void _addProduct() async {
-  if (_formKey.currentState!.validate()) {
-    String productName = _productNameController.text;
-    String description = _descriptionController.text;
-    double price = double.parse(_priceController.text);
-    String imageUrl = await _uploadImage();
-    int quantity = int.parse(_quantityController.text);
+    if (_formKey.currentState!.validate()) {
+      String productName = _productNameController.text;
+      String description = _descriptionController.text;
+      double price = double.parse(_priceController.text);
+      String imageUrl = await _uploadImage();
+      int quantity = int.parse(_quantityController.text);
 
-    // Get the current user's ID (replace with your own logic)
-    String userId = uid!;
+      // Get the current user's ID (replace with your own logic)
+      String userId = uid!;
 
-    Product newProduct = Product(
-      userId: userId,
-      name: productName,
-      description: description,
-      price: price,
-      imageUrl: imageUrl,
-      quantity: quantity,
-    );
-
-    CollectionReference products = FirebaseFirestore.instance.collection('products');
-
-    await products.add(newProduct.toJson()).then((document) {
-      // Successfully added the product
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Product added successfully')),
+      Product newProduct = Product(
+        userId: userId,
+        name: productName,
+        description: description,
+        price: price,
+        imageUrl: imageUrl,
+        quantity: quantity,
       );
 
-      // Clear the form fields
-      _productNameController.clear();
-      _descriptionController.clear();
-      _priceController.clear();
-      _quantityController.clear();
-      setState(() {
-        _image = null;
+      CollectionReference products = FirebaseFirestore.instance.collection('products');
+
+      await products.add(newProduct.toJson()).then((document) {
+        // Successfully added the product
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Product added successfully')),
+        );
+
+        // Clear the form fields
+        _productNameController.clear();
+        _descriptionController.clear();
+        _priceController.clear();
+        _quantityController.clear();
+        setState(() {
+          _image = null;
+        });
+      }).catchError((error) {
+        // Error occurred while adding the product
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error adding product: $error')),
+        );
       });
-    }).catchError((error) {
-      // Error occurred while adding the product
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error adding product: $error')),
-      );
-    });
-  }
-}
-
-  
-
-  Future<String> _uploadImage() async {
-    if (_image == null) {
-      return '';
-    }else{
-
-    String fileName = 'products/${DateTime.now().millisecondsSinceEpoch.toString()}';
-    
-    firebase_storage.Reference reference =firebase_storage.FirebaseStorage.instance.ref().child(fileName);
-    firebase_storage.UploadTask uploadTask = reference.putFile(_image!);
-    firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
-    String downloadURL = await taskSnapshot.ref.getDownloadURL();
-    return downloadURL;
     }
   }
 
+  /// Function to upload the selected image to Firebase Storage
+  Future<String> _uploadImage() async {
+    if (_image == null) {
+      return '';
+    } else {
+      String fileName = 'products/${DateTime.now().millisecondsSinceEpoch.toString()}';
+
+      firebase_storage.Reference reference = firebase_storage.FirebaseStorage.instance.ref().child(fileName);
+      firebase_storage.UploadTask uploadTask = reference.putFile(_image!);
+      firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadURL = await taskSnapshot.ref.getDownloadURL();
+      return downloadURL;
+    }
+  }
+
+  /// Function to select an image from the gallery
   Future _selectImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
@@ -108,7 +108,7 @@ class _AddProductPageState extends State<AddProductPage> {
         backgroundColor: AppColors.mainColor,
       ),
       body: Padding(
-        padding: const  EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -116,6 +116,7 @@ class _AddProductPageState extends State<AddProductPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// TextFormField for product name
                 TextFormField(
                   controller: _productNameController,
                   decoration: textInputDecoration.copyWith(hintText: "Product Name"),
@@ -126,6 +127,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     return null;
                   },
                 ),
+                /// TextFormField for description
                 TextFormField(
                   controller: _descriptionController,
                   decoration: textInputDecoration.copyWith(hintText: "Description"),
@@ -137,6 +139,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     return null;
                   },
                 ),
+                /// TextFormField for price
                 TextFormField(
                   controller: _priceController,
                   decoration: textInputDecoration.copyWith(hintText: "Price"),
@@ -151,13 +154,15 @@ class _AddProductPageState extends State<AddProductPage> {
                     return null;
                   },
                 ),
+                /// ListTile for selecting an image
                 ListTile(
-                  title:const Text('Image'),
+                  title: const Text('Image'),
                   subtitle: _image == null
                       ? const Text('No image selected')
                       : Image.file(_image!),
                   onTap: _selectImage,
                 ),
+                /// TextFormField for quantity
                 TextFormField(
                   controller: _quantityController,
                   decoration: textInputDecoration.copyWith(hintText: "Quantity"),
@@ -173,12 +178,11 @@ class _AddProductPageState extends State<AddProductPage> {
                   },
                 ),
                 const SizedBox(height: 16.0),
+                /// Button for adding the product
                 ElevatedButton(
                   onPressed: _addProduct,
-                  
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color?>(AppColors.mainColor),
-                    
                   ),
                   child: const Text('Add Product'),
                 ),
@@ -190,4 +194,3 @@ class _AddProductPageState extends State<AddProductPage> {
     );
   }
 }
-
