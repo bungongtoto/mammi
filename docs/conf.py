@@ -6,10 +6,10 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Mammi'
-copyright = '2023, Bungong Kingsley Ndzi'
-author = 'Bungong Kingsley Ndzi'
-release = 'first version'
+project = 'mammi'
+copyright = '2023, bungong kingsley ndzi'
+author = 'bungong kingsley ndzi'
+release = '1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -17,7 +17,7 @@ release = 'first version'
 extensions = []
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 
 
