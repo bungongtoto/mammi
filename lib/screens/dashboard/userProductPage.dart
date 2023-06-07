@@ -8,6 +8,8 @@ import 'package:mammi/widgets/big_text.dart';
 import 'package:mammi/widgets/icon_text_widget.dart';
 
 import '../../widgets/small_text.dart';
+import '../../widgets/small_text_with_overflow.dart';
+import '../home/order/dashboard_order.dart';
 import 'add_product.dart';
 
 class UserProductsPage extends StatefulWidget {
@@ -82,16 +84,30 @@ class _UserProductsPageState extends State<UserProductsPage> {
       context,
       MaterialPageRoute(builder: (context) => const AddProductPage()),
     );
-  }
+    }
+
+    void openProductOrderDashboard() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const DashboardOrdersPage()),
+    );
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.mainColor,
         title: const Text('My Products'),
         actions: <Widget>[
           TextButton.icon(
+              onPressed: () => openProductOrderDashboard(), 
+              icon: const Icon(Icons.sell), 
+              label: const Text('Orders')
+          ),
+          TextButton.icon(
               onPressed: () => openAddProductPage(), 
               icon: const Icon(Icons.add), 
-              label: const Text('Add')),
+              label: const Text('Add')
+          ),
+
         ],
       ),
       body: ListView.builder(
@@ -183,7 +199,7 @@ class _UserProductsPageState extends State<UserProductsPage> {
                             children: [
                               BigText(text: "${product.name}", color: Colors.black,),
                               SizedBox(height: Dimensions.height10,),
-                              SmallText(text: "${product.description}"),
+                              SmallTextOverflow(text: "${product.description}"),
                               SizedBox(height: Dimensions.height10,),
                                Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

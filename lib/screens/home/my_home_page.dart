@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mammi/colors/colors.dart';
-import 'package:mammi/screens/home/cart.dart';
 import 'package:mammi/screens/home/shops.dart';
 import 'package:mammi/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,8 @@ import '../../models/user.dart';
 import '../../services/database.dart';
 import '../dashboard/userProductPage.dart';
 import 'food/food_page.dart';
+import 'order/cart_page.dart';
+import 'order/user_order.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -41,11 +42,20 @@ class _MyHomePageState extends State<MyHomePage> {
     final AuthService auth = AuthService();
 
     void openDashboard() {
-    Navigator.push(
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => UserProductsPage(userId:user.uid)),
+      );
+    }
+
+    void openOrdersPage() {
+      Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => UserProductsPage(userId:user.uid)),
-    );
-  }
+      MaterialPageRoute(
+        builder: (context) => const OrdersPage(),
+      ),
+      );
+    }
     
     return StreamProvider<List<Product>?>.value(
       value: DatabaseService(user.uid).products, 
@@ -98,9 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 ListTile(
-                  title: const Text('Option 2'),
+                  title: const Text('Orders'),
                   onTap: () {
-                    // Perform action
+                    openOrdersPage();
                   },
                 ),
                 ListTile(

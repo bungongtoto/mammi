@@ -27,7 +27,9 @@ class Product {
     imageUrl: map['imageUrl'] as String,
     quantity: map['quantity'] as int,
   );
-}
+  }
+
+  
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
