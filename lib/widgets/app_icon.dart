@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:mammi/utills/dimensions.dart';
 
+/// this is general widget used arround the code that apears in several places
+/// this generates an icon and text with particular format
 class AppIcon extends StatelessWidget {
   final IconData icon;
   final Color backgroundColor;

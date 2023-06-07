@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// Represents an order in the application.
 class Orders {
   final String orderId;
   final String productId;
@@ -17,7 +18,9 @@ class Orders {
     required this.status,
   });
 
+  /// Factory method to create an Orders object from a DocumentSnapshot.
   factory Orders.fromSnapshot(DocumentSnapshot snapshot) {
+    /// Extract data from the snapshot
     final data = snapshot.data() as Map<String, dynamic>;
     return Orders(
       orderId: snapshot.id,

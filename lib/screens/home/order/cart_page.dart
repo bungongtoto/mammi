@@ -16,13 +16,15 @@ class CartPage extends StatelessWidget {
     final user = Provider.of<UserApp>(context);
     final TextEditingController _contactNumberController = TextEditingController();
 
+    /// Function to validate Cameroonian phone numbers
     bool isValidCameroonianPhoneNumber(String number) {
-      // Regular expression to validate Cameroonian phone numbers
+      /// Regular expression to validate Cameroonian phone numbers
       final cameroonianNumberRegex = r'^\+237[2368]\d{7,8}$';
       final regExp = RegExp(cameroonianNumberRegex);
       return regExp.hasMatch(number);
     }
 
+    /// Function to place the order
     Future<void> _placeOrder(List<Cart> cartItems, String contactNumber) async {
       if (contactNumber.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(

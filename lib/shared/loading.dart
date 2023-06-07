@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mammi/colors/colors.dart';
 
+/// this class proovides a loading screen used arround the application
 class Loading extends StatelessWidget {
 
   const Loading({super.key});

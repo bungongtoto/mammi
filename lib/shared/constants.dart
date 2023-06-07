@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mammi/colors/colors.dart';
-
+/// this is decoration for commmon text fields use arround the application
 const textInputDecoration =  InputDecoration(
                   fillColor: Colors.white,
                   filled: true,

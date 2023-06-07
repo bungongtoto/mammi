@@ -1,11 +1,11 @@
 class Product {
-  String? id;
-  String? userId;
-  String? name;
-  String? description;
-  double? price;
-  String? imageUrl;
-  int? quantity;
+  String? id; // Unique identifier of the product
+  String? userId; // ID of the user who owns the product
+  String? name; // Name of the product
+  String? description; // Description of the product
+  double? price; // Price of the product
+  String? imageUrl; // URL of the product image
+  int? quantity; // Quantity of the product
 
   Product({
     this.id,
@@ -17,20 +17,20 @@ class Product {
     this.quantity,
   });
 
+  /// Factory method to create a Product object from a Map and an ID.
   factory Product.fromMap(Map<String, dynamic> map, String id) {
-  return Product(
-    id: id,
-    userId: map['userId'] as String,
-    name: map['name'] as String,
-    description: map['description'] as String,
-    price: map['price'] as double,
-    imageUrl: map['imageUrl'] as String,
-    quantity: map['quantity'] as int,
-  );
+    return Product(
+      id: id,
+      userId: map['userId'] as String,
+      name: map['name'] as String,
+      description: map['description'] as String,
+      price: map['price'] as double,
+      imageUrl: map['imageUrl'] as String,
+      quantity: map['quantity'] as int,
+    );
   }
 
-  
-
+  /// Factory method to create a Product object from JSON data.
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       id: json['id'],
@@ -43,6 +43,7 @@ class Product {
     );
   }
 
+  /// Convert the Product object to a JSON representation.
   Map<String, dynamic> toJson() {
     return {
       'userId': userId,

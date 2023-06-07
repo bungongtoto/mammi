@@ -1,6 +1,8 @@
 import 'dart:ui';
-
+/// the class Appcolors is used to represent colors frequently used in the app ie app themem colors
+/// the name are kind of descriptive.
 class AppColors {
+  /// maincColor is the main color of the app
   static const mainColor = Color(0xFF89dad0) ;
   static const skyColor = Color.fromARGB(255, 175, 247, 239) ;
   static const iconColor1 = Color.fromARGB(255, 234, 175, 67);
