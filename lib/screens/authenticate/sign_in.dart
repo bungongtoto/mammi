@@ -50,7 +50,7 @@ class _SignInState extends State<SignIn> {
                         image: const DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(
-                            "assets/images/Mlogo.jpg",
+                            "assets/images/logo.jpg",
                           ),
                         ),
                       ),

@@ -87,7 +87,7 @@ class _FoodPageState extends State<FoodPage> {
               itemBuilder: (context, index) {
                 Product product = filteredProducts[index];
                 return GestureDetector(
-                  onDoubleTap: () {
+                  onTap: () {
                      Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) =>   FoodDetail(product: product,)),

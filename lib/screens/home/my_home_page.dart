@@ -7,26 +7,40 @@ import '../../models/product.dart';
 import '../../models/user.dart';
 import '../../services/database.dart';
 import '../dashboard/userProductPage.dart';
+import '../settings/settings.dart';
 import 'food/food_page.dart';
 import 'order/cart_page.dart';
 import 'order/user_order.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _selectedIndex = 0;
+  bool _isRefreshing = false;
 
-  final  List<Widget> _widgetOptions = <Widget> [
+  final List<Widget> _widgetOptions = <Widget>[
     const FoodPage(),
-    const ShopsPage(),
-    const CartPage(),     
+    const OrdersPage(),
+    const CartPage(),
   ];
+
+  Future<void> _handleRefresh() async {
+    setState(() {
+      _isRefreshing = true;
+    });
+
+    // Simulate a delay to show the refresh indicator
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      _isRefreshing = false;
+    });
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -34,37 +48,46 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
- 
   @override
   Widget build(BuildContext context) {
-
     final user = Provider.of<UserApp>(context);
     final AuthService auth = AuthService();
 
     void openDashboard() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => UserProductsPage(userId:user.uid)),
+        MaterialPageRoute(builder: (context) => UserProductsPage(userId: user.uid)),
       );
     }
 
     void openOrdersPage() {
       Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const OrdersPage(),
-      ),
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OrdersPage(),
+        ),
       );
     }
-    
+
+    void openOrders() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OrdersPage(),
+        ),
+      );
+    }
+
     return StreamProvider<List<Product>?>.value(
-      value: DatabaseService(user.uid).products, 
+      value: DatabaseService(user.uid).products,
       initialData: null,
       builder: (context, snapshot) {
-        return Scaffold( 
-        
-          body: Center(
-            child: _widgetOptions.elementAt(_selectedIndex),
+        return Scaffold(
+          body: RefreshIndicator(
+            onRefresh: _handleRefresh,
+            child: Center(
+              child: _widgetOptions.elementAt(_selectedIndex),
+            ),
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -73,8 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.shop),
-                label: 'shops',
+                icon: Icon(Icons.money_off_csred_sharp),
+                label: 'Orders',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart_outlined),
@@ -85,12 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedItemColor: AppColors.mainColor,
             onTap: _onItemTapped,
           ),
-          drawer:  Drawer(
+          drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                   DrawerHeader(
-                  decoration:const BoxDecoration(
+                DrawerHeader(
+                  decoration: const BoxDecoration(
                     color: AppColors.mainColor,
                   ),
                   child: Text(
@@ -113,12 +136,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     openOrdersPage();
                   },
                 ),
+                // ListTile(
+                //   title: const Text('Settings'),
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(builder: (context) => const SettingsPage()),
+                //     );
+                //   },
+                // ),
                 ListTile(
-                  
                   title: const Text('Log Out'),
-                  
-                  onTap: () async{
-      
+                  onTap: () async {
                     await auth.signOut();
                   },
                 ),
@@ -126,8 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         );
-      }
+      },
     );
   }
 }
-

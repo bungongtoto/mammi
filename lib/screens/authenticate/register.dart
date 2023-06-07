@@ -49,7 +49,7 @@ class _RegisterState extends State<Register> {
                         image: const DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(
-                            "assets/images/Mlogo.jpg",
+                            "assets/images/logo.jpg",
                           ),
                         ),
                       ),

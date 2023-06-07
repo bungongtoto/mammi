@@ -17,10 +17,21 @@ class DashboardOrdersPage extends StatefulWidget {
 }
 
 class _DashboardOrdersPageState extends State<DashboardOrdersPage> {
+  Future<List<String>>? _productIdsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProductIds();
+  }
+
+  Future<void> _fetchProductIds() async {
+    final user = Provider.of<UserApp>(context, listen: false);
+    _productIdsFuture = _getUserProductIds(user.uid);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserApp>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard Orders'),
@@ -28,10 +39,10 @@ class _DashboardOrdersPageState extends State<DashboardOrdersPage> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          // Implement your refresh logic here
+          await _fetchProductIds();
         },
         child: FutureBuilder<List<String>>(
-          future: _getUserProductIds(user.uid),
+          future: _productIdsFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
